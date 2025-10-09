@@ -22,20 +22,20 @@ if [ ! -z "$SMB_HOST" ] && [ ! -z "$SMB_USER" ] && [ ! -z "$SMB_PASS" ]; then
         ls -la /mnt/truenas/ | head -20
 
         # Prüfe ob Verzeichnisse existieren
-        if [ -d "/mnt/truenas/Models/Checkpoints" ]; then
+        if [ -d "/mnt/truenas/AI/Models/Checkpoints" ]; then
             echo "✓ Found Checkpoints directory"
-            MODEL_COUNT=$(ls -1 /mnt/truenas/Models/Checkpoints/*.safetensors 2>/dev/null | wc -l)
+            MODEL_COUNT=$(ls -1 /mnt/truenas/AI/Models/Checkpoints/*.safetensors 2>/dev/null | wc -l)
             echo "  Found $MODEL_COUNT checkpoint files"
         else
-            echo "⚠ Warning: /mnt/truenas/Models/Checkpoints not found"
+            echo "⚠ Warning: /mnt/truenas/AI/Models/Checkpoints not found"
         fi
 
-        if [ -d "/mnt/truenas/Models/LoRA" ]; then
+        if [ -d "/mnt/truenas/AI/Models/LoRA" ]; then
             echo "✓ Found LoRA directory"
-            LORA_COUNT=$(ls -1 /mnt/truenas/Models/LoRA/*.safetensors 2>/dev/null | wc -l)
+            LORA_COUNT=$(ls -1 /mnt/truenas/AI/Models/LoRA/*.safetensors 2>/dev/null | wc -l)
             echo "  Found $LORA_COUNT LoRA files"
         else
-            echo "⚠ Warning: /mnt/truenas/Models/LoRA not found"
+            echo "⚠ Warning: /mnt/truenas/AI/Models/LoRA not found"
         fi
     else
         echo "⚠ Warning: Failed to mount SMB share. Using local models directory."
