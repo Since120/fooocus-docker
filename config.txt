@@ -11,6 +11,6 @@
     "path_inpaint": "/app/models/inpaint",
     "path_controlnet": "/app/models/controlnet",
     "path_clip_vision": "/app/models/clip_vision",
-    "path_fooocus_expansion": "/app/models/fooocus_expansion",
+    "path_fooocus_expansion": "/mnt/truenas/AI/Models/prompt_expansion/fooocus_expansion",
     "path_outputs": "/app/outputs"
 }
