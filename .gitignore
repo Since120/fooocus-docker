@@ -20,6 +20,11 @@ ENV/
 # Docker
 .dockerignore
 
+# Environment variables (contains passwords!)
+.env
+.env.local
+.env.*.local
+
 # IDE
 .vscode/
 .idea/

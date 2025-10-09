@@ -11,6 +11,10 @@ Dieses Repository enthält ein Dockerfile für [Fooocus](https://github.com/llly
 
 ## Installation
 
+### Wichtig: TrueNAS SMB-Freigabe verwenden?
+
+Wenn Sie bereits Modelle auf einer TrueNAS SMB-Freigabe haben, lesen Sie zuerst [TRUENAS-SMB-SETUP.md](TRUENAS-SMB-SETUP.md) für die Konfiguration mit SMB-Mount.
+
 ### 1. Mit Docker Compose (empfohlen)
 
 ```bash

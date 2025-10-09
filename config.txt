@@ -1,0 +1,16 @@
+{
+    "path_checkpoints": [
+        "/mnt/truenas/Models/Checkpoints"
+    ],
+    "path_loras": [
+        "/mnt/truenas/Models/LoRA"
+    ],
+    "path_embeddings": "/app/models/embeddings",
+    "path_vae_approx": "/app/models/vae_approx",
+    "path_upscale_models": "/app/models/upscale_models",
+    "path_inpaint": "/app/models/inpaint",
+    "path_controlnet": "/app/models/controlnet",
+    "path_clip_vision": "/app/models/clip_vision",
+    "path_fooocus_expansion": "/app/models/fooocus_expansion",
+    "path_outputs": "/app/outputs"
+}

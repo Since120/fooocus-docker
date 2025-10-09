@@ -10,27 +10,31 @@ services:
     # GPU support - works when GPU is passed through to VM
     runtime: nvidia
 
+    # WICHTIG: Für CIFS/SMB Support benötigt
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse
+    security_opt:
+      - apparmor:unconfined
+
     ports:
       - "7865:7865"
 
     volumes:
-      # TrueNAS SMB Share für Models (anpassen!)
-      - type: cifs
-        source: //TRUENAS_IP/AI
-        target: /mnt/truenas
-        volume:
-          nocopy: true
-          o: "username=YOUR_SMB_USER,password=YOUR_SMB_PASSWORD,uid=1000,gid=1000,file_mode=0777,dir_mode=0777"
-
       # Config für benutzerdefinierte Pfade
       - ./config.txt:/app/config.txt:ro
 
-      # Persistent storage for generated images
+      # Persistent storage for generated images (lokal)
       - ./outputs:/app/outputs
 
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      # TrueNAS SMB Zugangsdaten
+      - SMB_HOST=//YOUR_TRUENAS_IP/AI
+      - SMB_USER=your_smb_username
+      - SMB_PASS=your_smb_password
 
     # Optional: Set memory limits
     # mem_limit: 16g

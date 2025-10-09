@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y \
     libxext6 \
     libxrender-dev \
     libgomp1 \
+    cifs-utils \
     && rm -rf /var/lib/apt/lists/*
 
 # Set Python 3.10 as default
@@ -55,7 +56,12 @@ RUN mkdir -p /app/models/checkpoints \
     /app/models/clip_vision \
     /app/models/fooocus_expansion \
     /app/models/prompt_expansion \
-    /app/outputs
+    /app/outputs \
+    /mnt/truenas
+
+# Copy entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Expose port for Gradio interface
 EXPOSE 7865
@@ -67,5 +73,5 @@ VOLUME ["/app/models", "/app/outputs"]
 HEALTHCHECK --interval=30s --timeout=10s --start-period=300s --retries=3 \
     CMD wget --quiet --tries=1 --spider http://localhost:7865/ || exit 1
 
-# Run Fooocus
-CMD ["python3", "entry_with_update.py", "--listen", "0.0.0.0", "--port", "7865"]
+# Run Fooocus with entrypoint
+ENTRYPOINT ["/entrypoint.sh"]
