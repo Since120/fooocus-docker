@@ -11,8 +11,10 @@ if [ ! -z "$SMB_HOST" ] && [ ! -z "$SMB_USER" ] && [ ! -z "$SMB_PASS" ]; then
     echo "Mounting TrueNAS SMB share..."
     echo "SMB Host: $SMB_HOST"
 
-    # Versuche zu mounten mit privileged mode
-    if mount -t cifs "$SMB_HOST" /mnt/truenas -o username="$SMB_USER",password="$SMB_PASS",uid=0,gid=0,file_mode=0755,dir_mode=0755,vers=3.0; then
+    # Versuche zu mounten - verschiedene Optionen probieren
+    if mount -t cifs "$SMB_HOST" /mnt/truenas -o username="$SMB_USER",password="$SMB_PASS",uid=0,gid=0,file_mode=0755,dir_mode=0755,vers=3.0,sec=ntlmssp 2>/dev/null || \
+       mount -t cifs "$SMB_HOST" /mnt/truenas -o username="$SMB_USER",password="$SMB_PASS",uid=0,gid=0,file_mode=0755,dir_mode=0755,vers=2.1,sec=ntlmssp 2>/dev/null || \
+       mount -t cifs "$SMB_HOST" /mnt/truenas -o username="$SMB_USER",password="$SMB_PASS",uid=0,gid=0,file_mode=0755,dir_mode=0755 2>/dev/null; then
         echo "✓ Successfully mounted $SMB_HOST to /mnt/truenas"
 
         # Prüfe ob Verzeichnisse existieren
