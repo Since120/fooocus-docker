@@ -16,9 +16,9 @@ services:
     ports:
       - "7865:7865"
 
-    volumes:
-      # Outputs gehen direkt zu TrueNAS (kein lokales Volume nötig)
-      # - ./outputs:/app/outputs
+    # Keine lokalen Volumes - alles auf TrueNAS
+    # volumes:
+    #   - ./outputs:/app/outputs
 
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
