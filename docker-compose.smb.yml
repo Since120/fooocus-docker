@@ -10,13 +10,8 @@ services:
     # GPU support - works when GPU is passed through to VM
     runtime: nvidia
 
-    # WICHTIG: Für CIFS/SMB Support benötigt
-    cap_add:
-      - SYS_ADMIN
-    devices:
-      - /dev/fuse
-    security_opt:
-      - apparmor:unconfined
+    # WICHTIG: Für CIFS/SMB Support benötigt (privileged mode)
+    privileged: true
 
     ports:
       - "7865:7865"

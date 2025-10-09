@@ -90,7 +90,29 @@ Die Pfade werden automatisch in Fooocus gemappt:
 
 ## Troubleshooting
 
-### Mount schlägt fehl
+### Mount schlägt fehl: "Unable to apply new capability set"
+
+**Ursache:** Docker Container benötigt privileged mode für CIFS-Mounts.
+
+**Lösung:**
+Die `docker-compose.smb.yml` sollte `privileged: true` enthalten (ist bereits drin).
+
+**Alternative Lösung - Manueller Mount auf dem Host:**
+
+Falls Sie privileged mode vermeiden möchten, mounten Sie die SMB-Freigabe auf dem Docker-Host:
+
+```bash
+# Auf dem Host (nicht im Container)
+sudo mkdir -p /mnt/truenas-ai
+sudo mount -t cifs //TRUENAS_IP/AI /mnt/truenas-ai \
+  -o username=USER,password=PASS,uid=1000,gid=1000
+
+# Dann in docker-compose.yml:
+volumes:
+  - /mnt/truenas-ai:/mnt/truenas:ro
+```
+
+### Mount schlägt fehl: Authentifizierung
 
 1. **Prüfen Sie die Logs** (siehe Schritt 4)
 2. **Prüfen Sie SMB-Zugriff** von einem anderen Computer:
@@ -101,6 +123,7 @@ Die Pfade werden automatisch in Fooocus gemappt:
    - In TrueNAS: **Sharing** → **Windows (SMB) Shares**
    - Share "AI" sollte aktiviert sein
    - Berechtigungen prüfen
+   - SMB-Authentifizierung aktiviert (nicht Anonymous)
 
 ### Modelle werden nicht angezeigt
 
