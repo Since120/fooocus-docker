@@ -37,6 +37,13 @@ if [ ! -z "$SMB_HOST" ] && [ ! -z "$SMB_USER" ] && [ ! -z "$SMB_PASS" ]; then
         else
             echo "⚠ Warning: /mnt/truenas/AI/Models/LoRA not found"
         fi
+
+        # Erstelle Output-Verzeichnis auf TrueNAS falls nicht vorhanden
+        if [ ! -d "/mnt/truenas/AI/Outputs/fooocus-vm" ]; then
+            echo "Creating output directory on TrueNAS..."
+            mkdir -p /mnt/truenas/AI/Outputs/fooocus-vm
+        fi
+        echo "✓ Output directory: /mnt/truenas/AI/Outputs/fooocus-vm"
     else
         echo "⚠ Warning: Failed to mount SMB share. Using local models directory."
         echo "   This might be due to network connectivity or credentials."

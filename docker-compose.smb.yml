@@ -17,8 +17,8 @@ services:
       - "7865:7865"
 
     volumes:
-      # Persistent storage for generated images (lokal)
-      - ./outputs:/app/outputs
+      # Outputs gehen direkt zu TrueNAS (kein lokales Volume nötig)
+      # - ./outputs:/app/outputs
 
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
