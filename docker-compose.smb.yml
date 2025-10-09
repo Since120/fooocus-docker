@@ -25,7 +25,7 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=compute,utility
       # TrueNAS SMB Zugangsdaten
       - SMB_HOST=//192.168.1.244/storage
-      - SMB_USER=truenas_admin
+      - SMB_USER=Since120
       - SMB_PASS=${SMB_PASS}
 
     # Optional: Set memory limits
