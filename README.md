@@ -41,18 +41,27 @@ docker run -d \
   fooocus:latest
 ```
 
-### 3. Mit Portainer
+### 3. Mit Portainer (wenn GPU bereits an VM durchgereicht ist)
 
+**Methode A: Von Git Repository (empfohlen)**
 1. In Portainer einloggen
 2. Gehe zu "Stacks" → "Add stack"
-3. Name eingeben (z.B. "fooocus")
-4. Repository-URL eingeben oder docker-compose.yml hochladen
-5. "Deploy the stack" klicken
+3. Name eingeben: `fooocus`
+4. "Repository" auswählen
+5. Repository URL: `https://github.com/Since120/fooocus-docker`
+6. Compose path: `docker-compose.yml`
+7. Reference: `main`
+8. "Deploy the stack" klicken
 
-**Wichtig für Portainer:**
-- Unter "Advanced settings" → "Runtime & Resources"
-- "Enable GPU" aktivieren
-- GPU-Geräte auswählen
+**Methode B: Web Editor**
+1. In Portainer einloggen
+2. Gehe zu "Stacks" → "Add stack"
+3. Name eingeben: `fooocus`
+4. "Web editor" auswählen
+5. Inhalt der `docker-compose.yml` aus dem Repository kopieren
+6. "Deploy the stack" klicken
+
+**Hinweis:** Da die GPU bereits auf VM-Ebene freigegeben ist, wird `runtime: nvidia` in der docker-compose.yml automatisch die GPU nutzen. Keine weiteren GPU-Einstellungen in Portainer erforderlich.
 
 ## Zugriff
 
