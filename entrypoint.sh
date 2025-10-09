@@ -17,6 +17,10 @@ if [ ! -z "$SMB_HOST" ] && [ ! -z "$SMB_USER" ] && [ ! -z "$SMB_PASS" ]; then
        mount -t cifs "$SMB_HOST" /mnt/truenas -o username="$SMB_USER",password="$SMB_PASS",uid=0,gid=0,file_mode=0755,dir_mode=0755 2>/dev/null; then
         echo "✓ Successfully mounted $SMB_HOST to /mnt/truenas"
 
+        # Liste Verzeichnisse auf
+        echo "Mounted directory contents:"
+        ls -la /mnt/truenas/ | head -20
+
         # Prüfe ob Verzeichnisse existieren
         if [ -d "/mnt/truenas/Models/Checkpoints" ]; then
             echo "✓ Found Checkpoints directory"

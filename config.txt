@@ -1,9 +1,9 @@
 {
     "path_checkpoints": [
-        "/mnt/truenas/AI/Models/Checkpoints"
+        "/mnt/truenas/Models/Checkpoints"
     ],
     "path_loras": [
-        "/mnt/truenas/AI/Models/LoRA"
+        "/mnt/truenas/Models/LoRA"
     ],
     "path_embeddings": "/app/models/embeddings",
     "path_vae_approx": "/app/models/vae_approx",
