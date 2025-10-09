@@ -48,4 +48,4 @@ fi
 # Starte Fooocus
 echo "Starting Fooocus application..."
 cd /app
-exec python3 entry_with_update.py --listen 0.0.0.0 --port 7865 "$@"
+exec python3 entry_with_update.py --listen 0.0.0.0 --port 7865 --disable-preset-download "$@"
