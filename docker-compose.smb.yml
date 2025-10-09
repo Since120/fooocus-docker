@@ -17,9 +17,6 @@ services:
       - "7865:7865"
 
     volumes:
-      # Config für benutzerdefinierte Pfade
-      - ./config.txt:/app/config.txt:ro
-
       # Persistent storage for generated images (lokal)
       - ./outputs:/app/outputs
 

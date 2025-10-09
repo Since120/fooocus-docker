@@ -6,12 +6,6 @@ echo "Starting Fooocus with TrueNAS SMB mount..."
 # Erstelle Mount-Punkt
 mkdir -p /mnt/truenas
 
-# Prüfe ob config.txt als Verzeichnis existiert und lösche es
-if [ -d "/app/config.txt" ]; then
-    echo "Removing config.txt directory..."
-    rmdir /app/config.txt 2>/dev/null || rm -rf /app/config.txt
-fi
-
 # Mounte SMB Share wenn Credentials vorhanden sind
 if [ ! -z "$SMB_HOST" ] && [ ! -z "$SMB_USER" ] && [ ! -z "$SMB_PASS" ]; then
     echo "Mounting TrueNAS SMB share..."

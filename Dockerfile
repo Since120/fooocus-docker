@@ -59,8 +59,9 @@ RUN mkdir -p /app/models/checkpoints \
     /app/outputs \
     /mnt/truenas
 
-# Copy entrypoint script
+# Copy entrypoint script and config
 COPY entrypoint.sh /entrypoint.sh
+COPY config.txt /app/config.txt
 RUN chmod +x /entrypoint.sh
 
 # Expose port for Gradio interface
