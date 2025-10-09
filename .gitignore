@@ -25,6 +25,9 @@ ENV/
 .env.local
 .env.*.local
 
+# Final compose with hardcoded credentials
+docker-compose.final.yml
+
 # IDE
 .vscode/
 .idea/
