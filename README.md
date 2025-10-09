@@ -116,35 +116,25 @@ CMD ["python3", "entry_with_update.py", "--listen", "0.0.0.0", "--port", "7865",
 
 ## Fehlerbehebung
 
-### GPU wird nicht erkannt
+**Beim ersten Start treten Fehler auf?** Das ist normal! Lesen Sie [TROUBLESHOOTING.md](TROUBLESHOOTING.md) für detaillierte Lösungen.
 
-Stelle sicher, dass NVIDIA Container Toolkit installiert ist:
+### Wichtigste Hinweise:
 
-```bash
-# Installieren (Ubuntu/Debian)
-distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
-curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+**Thread Exception beim Start:** Nicht kritisch - der Container läuft trotzdem und ist auf Port 7865 erreichbar.
 
-sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
-sudo systemctl restart docker
-```
+**Prompt Expansion Fehler:** Wird automatisch deaktiviert, Bildgenerierung funktioniert normal.
 
-### Container startet nicht
+**Erste Bildgenerierung langsam:** Modelle werden beim ersten Mal heruntergeladen (5-10 Minuten).
 
-Logs überprüfen:
+### Logs anzeigen
 
 ```bash
 docker-compose logs -f
+
+# Oder in Portainer: Container → Logs
 ```
 
-### Speicherplatzprobleme
-
-Die Modelle sind groß (mehrere GB). Stelle sicher, dass genügend Speicherplatz vorhanden ist:
-
-```bash
-df -h
-```
+Für weitere Hilfe siehe [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
 
 ## Volumes
 

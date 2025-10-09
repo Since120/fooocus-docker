@@ -45,8 +45,17 @@ RUN git clone https://github.com/lllyasviel/Fooocus.git . && \
 # Install Python dependencies
 RUN pip3 install -r requirements_versions.txt
 
-# Create directories for models and outputs
-RUN mkdir -p /app/models /app/outputs
+# Create directories for models and outputs with proper structure
+RUN mkdir -p /app/models/checkpoints \
+    /app/models/loras \
+    /app/models/vae_approx \
+    /app/models/upscale_models \
+    /app/models/inpaint \
+    /app/models/controlnet \
+    /app/models/clip_vision \
+    /app/models/fooocus_expansion \
+    /app/models/prompt_expansion \
+    /app/outputs
 
 # Expose port for Gradio interface
 EXPOSE 7865
@@ -54,8 +63,8 @@ EXPOSE 7865
 # Set up volume mount points
 VOLUME ["/app/models", "/app/outputs"]
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+# Health check - längere Start-Zeit für Model-Downloads
+HEALTHCHECK --interval=30s --timeout=10s --start-period=300s --retries=3 \
     CMD wget --quiet --tries=1 --spider http://localhost:7865/ || exit 1
 
 # Run Fooocus
