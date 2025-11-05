@@ -10,6 +10,9 @@ services:
     # GPU support - works when GPU is passed through to VM
     runtime: nvidia
 
+    # WICHTIG: Für CIFS/SMB Support benötigt (privileged mode)
+    privileged: true
+
     ports:
       - "7865:7865"
 
