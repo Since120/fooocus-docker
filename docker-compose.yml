@@ -20,8 +20,8 @@ services:
       # Config für benutzerdefinierte Pfade
       - ./config.txt:/app/config.txt:ro
 
-      # Persistent storage for generated images
-      - ./outputs:/app/outputs
+      # Outputs direkt zum SMB Mount
+      - /mnt/proxmox-ai/Outputs/fooocus-vm:/app/outputs:rw
 
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
