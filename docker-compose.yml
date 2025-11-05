@@ -14,8 +14,8 @@ services:
       - "7865:7865"
 
     volumes:
-      # DIREKT vom Proxmox Host mounten - Bind Mount
-      - /tank/data/AI:/mnt/ai:rw
+      # Samba Mount vom Proxmox Host
+      - /mnt/proxmox-ai:/mnt/ai:rw
 
       # Config für benutzerdefinierte Pfade
       - ./config.txt:/app/config.txt:ro
