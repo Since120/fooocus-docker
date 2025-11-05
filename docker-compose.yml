@@ -14,13 +14,8 @@ services:
       - "7865:7865"
 
     volumes:
-      # TrueNAS SMB Share für Models (anpassen!)
-      - type: cifs
-        source: //TRUENAS_IP/AI
-        target: /mnt/truenas
-        volume:
-          nocopy: true
-          o: "username=YOUR_SMB_USER,password=YOUR_SMB_PASSWORD,uid=1000,gid=1000,file_mode=0777,dir_mode=0777"
+      # DIREKT vom Proxmox Host mounten - Bind Mount
+      - /tank/data/AI:/mnt/ai:rw
 
       # Config für benutzerdefinierte Pfade
       - ./config.txt:/app/config.txt:ro

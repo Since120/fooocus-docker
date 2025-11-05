@@ -1,9 +1,9 @@
 {
     "path_checkpoints": [
-        "/mnt/truenas/AI/Models/Checkpoints"
+        "/mnt/ai/Models/Checkpoints"
     ],
     "path_loras": [
-        "/mnt/truenas/AI/Models/LoRA"
+        "/mnt/ai/Models/LoRA"
     ],
     "path_embeddings": "/app/models/embeddings",
     "path_vae_approx": "/app/models/vae_approx",
@@ -11,6 +11,6 @@
     "path_inpaint": "/app/models/inpaint",
     "path_controlnet": "/app/models/controlnet",
     "path_clip_vision": "/app/models/clip_vision",
-    "path_fooocus_expansion": "/mnt/truenas/AI/Models/prompt_expansion/fooocus_expansion",
-    "path_outputs": "/mnt/truenas/AI/Outputs/fooocus-vm"
+    "path_fooocus_expansion": "/mnt/ai/Models/prompt_expansion/fooocus_expansion",
+    "path_outputs": "/mnt/ai/Outputs/fooocus-vm"
 }

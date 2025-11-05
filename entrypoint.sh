@@ -1,56 +1,28 @@
 #!/bin/bash
 set -e
 
-echo "Starting Fooocus with TrueNAS SMB mount..."
+echo "Starting Fooocus with local Proxmox storage..."
 
-# Erstelle Mount-Punkt
-mkdir -p /mnt/truenas
-
-# Mounte SMB Share wenn Credentials vorhanden sind
-if [ ! -z "$SMB_HOST" ] && [ ! -z "$SMB_USER" ] && [ ! -z "$SMB_PASS" ]; then
-    echo "Mounting TrueNAS SMB share..."
-    echo "SMB Host: $SMB_HOST"
-
-    # Versuche zu mounten - verschiedene Optionen probieren
-    if mount -t cifs "$SMB_HOST" /mnt/truenas -o username="$SMB_USER",password="$SMB_PASS",uid=0,gid=0,file_mode=0755,dir_mode=0755,vers=3.0,sec=ntlmssp 2>/dev/null || \
-       mount -t cifs "$SMB_HOST" /mnt/truenas -o username="$SMB_USER",password="$SMB_PASS",uid=0,gid=0,file_mode=0755,dir_mode=0755,vers=2.1,sec=ntlmssp 2>/dev/null || \
-       mount -t cifs "$SMB_HOST" /mnt/truenas -o username="$SMB_USER",password="$SMB_PASS",uid=0,gid=0,file_mode=0755,dir_mode=0755 2>/dev/null; then
-        echo "✓ Successfully mounted $SMB_HOST to /mnt/truenas"
-
-        # Liste Verzeichnisse auf
-        echo "Mounted directory contents:"
-        ls -la /mnt/truenas/ | head -20
-
-        # Prüfe ob Verzeichnisse existieren
-        if [ -d "/mnt/truenas/AI/Models/Checkpoints" ]; then
-            echo "✓ Found Checkpoints directory"
-            MODEL_COUNT=$(ls -1 /mnt/truenas/AI/Models/Checkpoints/*.safetensors 2>/dev/null | wc -l)
-            echo "  Found $MODEL_COUNT checkpoint files"
-        else
-            echo "⚠ Warning: /mnt/truenas/AI/Models/Checkpoints not found"
-        fi
-
-        if [ -d "/mnt/truenas/AI/Models/LoRA" ]; then
-            echo "✓ Found LoRA directory"
-            LORA_COUNT=$(ls -1 /mnt/truenas/AI/Models/LoRA/*.safetensors 2>/dev/null | wc -l)
-            echo "  Found $LORA_COUNT LoRA files"
-        else
-            echo "⚠ Warning: /mnt/truenas/AI/Models/LoRA not found"
-        fi
-
-        # Erstelle Output-Verzeichnis auf TrueNAS falls nicht vorhanden
-        if [ ! -d "/mnt/truenas/AI/Outputs/fooocus-vm" ]; then
-            echo "Creating output directory on TrueNAS..."
-            mkdir -p /mnt/truenas/AI/Outputs/fooocus-vm
-        fi
-        echo "✓ Output directory: /mnt/truenas/AI/Outputs/fooocus-vm"
-    else
-        echo "⚠ Warning: Failed to mount SMB share. Using local models directory."
-        echo "   This might be due to network connectivity or credentials."
-    fi
+# Prüfe ob AI Models gemountet sind
+if [ -d "/mnt/ai/Models/Checkpoints" ]; then
+    echo "✓ Found Checkpoints directory"
+    MODEL_COUNT=$(ls -1 /mnt/ai/Models/Checkpoints/*.safetensors 2>/dev/null | wc -l)
+    echo "  Found $MODEL_COUNT checkpoint files"
 else
-    echo "No SMB credentials provided. Using local models directory."
+    echo "⚠ Warning: /mnt/ai/Models/Checkpoints not found"
 fi
+
+if [ -d "/mnt/ai/Models/LoRA" ]; then
+    echo "✓ Found LoRA directory"
+    LORA_COUNT=$(ls -1 /mnt/ai/Models/LoRA/*.safetensors 2>/dev/null | wc -l)
+    echo "  Found $LORA_COUNT LoRA files"
+else
+    echo "⚠ Warning: /mnt/ai/Models/LoRA not found"
+fi
+
+# Erstelle Output-Verzeichnis falls nicht vorhanden
+mkdir -p /mnt/ai/Outputs/fooocus-vm
+echo "✓ Output directory: /mnt/ai/Outputs/fooocus-vm"
 
 # Starte Fooocus
 echo "Starting Fooocus application..."

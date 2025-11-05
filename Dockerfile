@@ -23,7 +23,6 @@ RUN apt-get update && apt-get install -y \
     libxext6 \
     libxrender-dev \
     libgomp1 \
-    cifs-utils \
     && rm -rf /var/lib/apt/lists/*
 
 # Set Python 3.10 as default
@@ -57,7 +56,7 @@ RUN mkdir -p /app/models/checkpoints \
     /app/models/fooocus_expansion \
     /app/models/prompt_expansion \
     /app/outputs \
-    /mnt/truenas
+    /mnt/ai
 
 # Copy entrypoint script and config
 COPY entrypoint.sh /entrypoint.sh
